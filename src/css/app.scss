@@ -1,1 +1,7 @@
 // app global css in SCSS form
+@import 'fonts';
+@import 'partials/sidebar';
+@import 'global';
+@import 'partials/dashboard';
+@import 'partials/navbar';
+@import 'partials/tablelist';

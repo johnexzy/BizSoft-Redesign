@@ -1,0 +1,16 @@
+.dashboard {
+  &-sub-nav {
+    background: #f5f7f8;
+    padding: 10px 30px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center !important;
+    font-size: 14px;
+    line-height: 15px;
+    &-active {
+      color: #0d4df2;
+    }
+  }
+}
