@@ -4,7 +4,7 @@
     <div class="dashboard-sub-nav">
       <div>
         <span>Dashboard</span> <q-icon name="chevron_right" />
-        <span class="dashboard-sub-nav-active">Unconfirmed Employees</span>
+        <span class="dashboard-sub-nav-active">Punctuality Report</span>
       </div>
       <div>
         <q-btn

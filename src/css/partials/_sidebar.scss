@@ -7,7 +7,6 @@
   }
 
   .q-item {
-
     height: 40px;
     border-radius: 4px;
     margin: 0px 0px 10px 0px;
@@ -19,18 +18,18 @@
       letter-spacing: -0.01em;
     }
     &__section--side {
-      margin-right: -18px
+      margin-right: -18px;
     }
     &:hover {
-      border: 1px solid grey;
+      // border: 0.1px solid grey;
     }
   }
-  &-dots{
+  &-dots {
     right: -2px;
     top: 11px;
     position: absolute;
   }
 }
 .exact-active-class {
-  background: #6F0678;
+  background: #6f0678;
 }

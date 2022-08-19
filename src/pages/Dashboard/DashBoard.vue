@@ -26,19 +26,55 @@
         </q-menu>
       </div>
     </div>
-    <div class="container q-mt-lg q-pt-sm">
+    <div class="container q-mt-sm">
+      <div class="row justify-between q-py-lg q-px-md">
+        <div class="table-list-title">Employee</div>
+        <div class="row q-gutter-lg">
+          <q-pagination
+            v-model="initialPagination.page"
+            color="grey-8"
+            :max="pagesNumber"
+            boundary-numbers
+            :max-pages="4"
+            outline
+            boundary-links
+            size="md"
+          />
+          <div>
+            <q-btn
+              color="secondary"
+              text-color="text-black-2"
+              unelevated
+              icon="filter_alt"
+              no-caps
+              label="Search & Filter"
+            />
+            <q-menu>
+              <q-list style="min-width: 100px">
+                <q-item clickable v-close-popup>
+                  <q-item-section>Microsoft Excel (.xlsx)</q-item-section>
+                </q-item>
+                <q-item clickable v-close-popup>
+                  <q-item-section>Acrobat Reader (.pdf)</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </div>
+        </div>
+      </div>
       <TableList
         :rows="rows"
         :columns="columns"
         :getSelectedString="getSelectedString"
         :list-title="'Clocked-in Employees'"
+        :pagination="initialPagination"
       ></TableList>
     </div>
   </q-page>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const columns = [
   {
@@ -73,104 +109,44 @@ const columns = [
   { name: 'action', label: 'Action', field: 'action', align: 'left' },
 ];
 
-const rows = [
-  {
-    name: 'Frozen Yogurt',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 87,
-  },
-  {
-    name: 'Ice cream sandwich',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 129,
-  },
-  {
-    name: 'Eclair',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 337,
-  },
-  {
-    name: 'Cupcake',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 413,
-  },
-  {
-    name: 'Gingerbread',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 327,
-  },
-  {
-    name: 'Jelly bean',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 50,
-  },
-  {
-    name: 'Lollipop',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 38,
-  },
-  {
-    name: 'Honeycomb',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 562,
-  },
-  {
-    name: 'Donut',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 326,
-  },
-  {
-    name: 'KitKat',
-    location: 'Chicago Office',
-    approval: 'Pending-Level 1',
-    current_approval: 'Olabode Azeez',
-    action: 'Jun 20, 2020',
-    sodium: 54,
-  },
-];
-
 export default {
   setup() {
     const selected = ref([]);
-
+    const initialPagination = ref({
+      sortBy: 'desc',
+      descending: false,
+      page: 1,
+      rowsPerPage: 10,
+      // rowsNumber: xx if getting data from a server
+    });
+    const rows = ref([]);
+    function populateRow() {
+      for (let index = 1; index <= 100; index++) {
+        rows.value.push({
+          name: 'Pay Circle ' + index,
+          location: 'Chicago Office',
+          approval: 'Pending-Level 1',
+          current_approval: 'Olabode Azeez',
+          action: 'Jun 20, 2020',
+          sodium: 87,
+        });
+      }
+    }
+    populateRow();
     return {
       selected,
       columns,
       rows,
-
+      initialPagination,
+      pagesNumber: computed(() =>
+        Math.ceil(rows.value.length / initialPagination.value.rowsPerPage)
+      ),
       getSelectedString() {
         return selected.value.length === 0
           ? ''
           : `${selected.value.length} record${
               selected.value.length > 1 ? 's' : ''
-            } selected of ${rows.length}`;
+            } selected of ${rows.value.length}`;
       },
     };
   },

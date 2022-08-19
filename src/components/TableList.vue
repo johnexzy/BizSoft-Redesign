@@ -1,6 +1,6 @@
 <template>
   <div class="table-list">
-    <div class="row justify-between q-py-lg q-px-md">
+    <!-- <div class="row justify-between q-py-lg q-px-md">
       <div class="table-list-title">{{ listTitle }}</div>
       <q-pagination
         v-model="initialPagination.page"
@@ -11,7 +11,7 @@
         boundary-links
         size="sm"
       />
-    </div>
+    </div> -->
 
     <q-table
       flat
@@ -20,7 +20,7 @@
       row-key="name"
       :selected-rows-label="getSelectedString"
       selection="multiple"
-      :pagination="initialPagination"
+      :pagination="pagination"
       v-model:selected="selected"
       hide-pagination
     />
@@ -33,20 +33,8 @@ export default defineComponent({
   data() {
     return {
       selected: [],
-      initialPagination: {
-        sortBy: 'desc',
-        descending: false,
-        page: 1,
-        rowsPerPage: 10,
-        // rowsNumber: xx if getting data from a server
-      },
     };
   },
-  computed: {
-    pagesNumber() {
-      return Math.ceil(this.rows.length / this.initialPagination.rowsPerPage);
-    },
-  },
-  props: ['rows', 'columns', 'getSelectedString', 'listTitle'],
+  props: ['rows', 'columns', 'getSelectedString', 'listTitle', 'pagination'],
 });
 </script>
